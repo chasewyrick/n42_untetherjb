@@ -1,8 +1,11 @@
-#derebusantiquis<br>
+**derebusantiquis**<br>
+original: https://xerub.github.io/ios/iboot/2018/05/10/de-rebus-antiquis.html
+
+
 ramdiskF2.dmg: Load /iBEC after exploit.<br>
 <br>
-#Additional patches<br>
-1)<br>
+**Additional patches**<br>
+(1)<br>
 **There may be a better way to do this**<br>
 Call "/iBEC loading function" after "boot failure count".<br>
 
@@ -11,7 +14,7 @@ bff00e04         ldr        r1, [sp, arg_4]
 bff00e06         ldr        r0, =0xbff34e78                                     ; "Boot Failure Count: %ld\\tPanic Fail Count: %ld\\n"<br>
 bff00e08         bl         sub_bff33754 -> sub_bff013b8<br>
 <br>
-2)<br>
+(2)<br>
 boot-partition=0 patch<br>
 <br>
              sub_bff013b8:<br>
@@ -27,11 +30,12 @@ bff013c6         movs       r4, #0x0<br>
 bff3522c         db  0x32 ; '2' -> '0'                                                ; DATA XREF=sub_bff013b8+12, dword_bff01438<br>
 bff3522d         db  0x00 ; '.'<br>
 <br>
-3)<br>
+**Untethered Boot**<br>
+(1)<br>
 Set /iBEC to the root of disk0s1s1 of the device.<br>
 iBoot jumps to iBEC after exploit invocation.<br>
 <br>
-4)
+(2)<br>
 iBEC loads /applelogo, /devicetree, /ramdisk, /kernelcache from boot-partition=0 at the OTA routine and untethered boot it.
 (Things like CoolBooter)<br>
 <br>
@@ -43,7 +47,7 @@ nvram boot-ramdisk="/a/b/c/d/e/f/g/h/i/j/k/l/m/disk.dmg"<br>
 and, install /iBEC, /applelogo, /devicetree, /ramdisk, /kernelcache<br>
 <br>
 #device<br>
-iPhone5,2 iOS 7.0.4 iBoot<br>
+iPhone5,2 iOS 7.0.4 iBoot only<br>
 <br>
 https://www.youtube.com/watch?v=dSfPt_vCA4I<br>
 <br>
